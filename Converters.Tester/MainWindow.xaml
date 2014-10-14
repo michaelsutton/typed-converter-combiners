@@ -1,0 +1,68 @@
+﻿<Window x:Class="Converters.Tester.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:examples="clr-namespace:Converters.Tester.Examples"
+        xmlns:combiners="clr-namespace:Converters.Infrastructure.Combiners;assembly=Converters.Infrastructure"
+        xmlns:builders="clr-namespace:Converters.Infrastructure.Combiners.Builders;assembly=Converters.Infrastructure"
+        Title="MainWindow" Height="350" Width="525">
+
+    <Window.Resources>
+
+        <examples:MultiplyConverter x:Key="MultiplyConverter" Factor="2"/>
+        <examples:AddConverter x:Key="AddConverter" />
+
+        <combiners:ConverterChain x:Key="Chain" >
+            <builders:TypedChainBuilder>
+                <examples:IntToStringConverter />
+
+                <!--<examples:A1ToIntConverter />
+                <examples:IntToA2Converter />-->
+
+                <!--<examples:A3ToIntConverter />
+                <examples:IntToA2Converter />-->
+
+                <StaticResource ResourceKey="MultiplyConverter"/>
+                <StaticResource ResourceKey="MultiplyConverter"/>
+                <StaticResource ResourceKey="MultiplyConverter"/>
+            </builders:TypedChainBuilder>
+        </combiners:ConverterChain>
+        
+        <combiners:ConverterTree x:Key="Tree">
+            <builders:TypedTreeBuilder>
+
+                <builders:ValueConverterNode Converter="{examples:UntypedIntToStringConverter}">
+                    <builders:MultiValueConverterNode Converter="{StaticResource AddConverter}" Mapping="0-1">
+
+                        <!--<builders:ValueConverterNode Mapping="0" Converter="{StaticResource MultiplyConverter}"/>
+                        <builders:ValueConverterNode Mapping="1" Converter="{StaticResource MultiplyConverter}"/>-->
+
+                    </builders:MultiValueConverterNode>
+                </builders:ValueConverterNode>
+
+            </builders:TypedTreeBuilder>
+        </combiners:ConverterTree>
+
+    </Window.Resources>
+
+    <StackPanel Margin="10">
+        <TextBox Margin="10" >
+            <TextBox.Text>
+                <MultiBinding Converter="{StaticResource Tree}">
+                    <Binding Path="Value"/>
+                    <Binding Path="Value"/>
+                </MultiBinding>
+            </TextBox.Text>
+        </TextBox>
+        
+        <TextBox Margin="10"
+            Text="{Binding Value, 
+            Converter={StaticResource Chain}, 
+            Mode=TwoWay,
+            UpdateSourceTrigger=LostFocus}"/>
+
+        <TextBox Margin="10" 
+            Text="{Binding Value, 
+            Mode=TwoWay,
+            UpdateSourceTrigger=LostFocus}"/>
+    </StackPanel>
+</Window>

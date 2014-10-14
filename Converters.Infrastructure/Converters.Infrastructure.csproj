@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56A213FE-4854-4D8D-8B8A-546FBBCFDE7A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Converters.Infrastructure</RootNamespace>
+    <AssemblyName>Converters.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Combiners\Builders\BuilderBase.cs" />
+    <Compile Include="Combiners\Builders\TreeBuilderNodes.cs" />
+    <Compile Include="Combiners\Builders\TypedTreeBuilder.cs" />
+    <Compile Include="Combiners\Builders\UntypedTreeBuilder.cs" />
+    <Compile Include="Combiners\CombinerBase.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Double\TypedDoubleConverterLeaf.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Double\TypedDoubleConverterNode.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Many\TypedMultiConverterLeaf.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Many\TypedMultiConverterNode.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Single\TypedConverterLeaf.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Single\TypedConverterNode.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Triple\TypedTripleConverterLeaf.cs" />
+    <Compile Include="Combiners\Nodes\Typed\Triple\TypedTripleConverterNode.cs" />
+    <Compile Include="Combiners\Nodes\Untyped\UntypedConverterNodeBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Combiners\Builders\ChainBuilder.cs" />
+    <Compile Include="Combiners\Builders\TreeBuilder.cs" />
+    <Compile Include="Combiners\Builders\TypedChainBuilder.cs" />
+    <Compile Include="Combiners\Builders\UntypedChainBuilder.cs" />
+    <Compile Include="Combiners\ConverterChain.cs" />
+    <Compile Include="Combiners\ConverterTree.cs" />
+    <Compile Include="Combiners\Nodes\Typed\IConverterNode.cs" />
+    <Compile Include="Combiners\Nodes\Typed\TypedConverterNodeBase.cs" />
+    <Compile Include="Combiners\Nodes\Untyped\IConverterNode.cs" />
+    <Compile Include="Combiners\Nodes\Untyped\UntypedConverterLeaf.cs" />
+    <Compile Include="Combiners\Nodes\Untyped\UntypedConverterNode.cs" />
+    <Compile Include="Combiners\Nodes\Untyped\UntypedMultiConverterLeaf.cs" />
+    <Compile Include="Combiners\Nodes\Untyped\UntypedMultiConverterNode.cs" />
+    <Compile Include="Combiners\Traversal\ConvertBackChainTraversalData.cs" />
+    <Compile Include="Combiners\Traversal\ConvertBackTraversalData.cs" />
+    <Compile Include="Combiners\Traversal\ConvertBackTreeTraversalData.cs" />
+    <Compile Include="Combiners\Traversal\ConvertChainTraversalData.cs" />
+    <Compile Include="Combiners\Traversal\ConvertTraversalData.cs" />
+    <Compile Include="Combiners\Traversal\ConvertTreeTraversalData.cs" />
+    <Compile Include="Typed\Double\ITypedDoubleValueConverter.cs" />
+    <Compile Include="Typed\Double\TypedDoubleValueConverter.cs" />
+    <Compile Include="Typed\Many\ITypedMultiValueConverter.cs" />
+    <Compile Include="Typed\Many\TypedMultiValueConverter.cs" />
+    <Compile Include="Typed\Single\ITypedValueConverter.cs" />
+    <Compile Include="Typed\Single\TypedValueConverter.cs" />
+    <Compile Include="Typed\Triple\ITypedTripleValueConverter.cs" />
+    <Compile Include="Typed\Triple\TypedTripleValueConverter.cs" />
+    <Compile Include="Typed\TypedConverterBase.cs" />
+    <Compile Include="Typed\TypedMultiConverterBase.cs" />
+    <Compile Include="Utils\InvalidConversionException.cs" />
+    <Compile Include="Utils\ConverterCollection.cs" />
+    <Compile Include="Utils\IntegersTypeConverter.cs" />
+    <Compile Include="Utils\ThisExtension.cs" />
+    <Compile Include="Utils\TypedConversionException.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
