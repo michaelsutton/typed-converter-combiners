@@ -26,11 +26,58 @@ namespace Converters.Tester
     {
         private int m_value;
 
+        private int m_x;
+        private int m_y;
+        private int m_result;
+
         public MainWindow()
         {
             Value = 1;
+
+            X = 2;
+            Y = 3;
+
             DataContext = this;
             InitializeComponent();
+        }
+
+        public int X
+        {
+            get { return m_x; }
+            set
+            {
+                if (m_x != value)
+                {
+                    m_x = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int Y
+        {
+            get { return m_y; }
+            set
+            {
+                if (m_y != value)
+                {
+                    m_y = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int Result
+        {
+            get { return m_result; }
+            set
+            {
+                if (m_result != value)
+                {
+                    m_result = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public int Value

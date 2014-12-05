@@ -65,7 +65,7 @@
     <Compile Include="Examples\CovariantExample.cs" />
     <Compile Include="Examples\DoubledMultiplyConverter.cs" />
     <Compile Include="Examples\IntToStringConverter.cs" />
-    <Compile Include="Examples\MultiplyConverter.cs" />
+    <Compile Include="Examples\MultiplyFactorConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

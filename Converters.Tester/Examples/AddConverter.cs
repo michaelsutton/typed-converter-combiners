@@ -9,6 +9,19 @@ using Converters.Infrastructure.Typed.Double;
 
 namespace Converters.Tester.Examples
 {
+    public class MultiplyConverter : TypedDoubleValueConverter<int, int, int>
+    {
+        public override int Convert(int value1, int value2, Type actualTargetType, object parameter, CultureInfo culture)
+        {
+            return value1 * value2;
+        }
+
+        public override IPair<int, int> ConvertBack(int value, Type[] actualTargetTypes, object parameter, CultureInfo culture)
+        {
+            return new Pair<int, int>(1, value);
+        }
+    }
+
     public class AddConverter : TypedDoubleValueConverter<int, int, int>
     {
         public override int Convert(int value1, int value2, Type actualTargetType, object parameter, CultureInfo culture)

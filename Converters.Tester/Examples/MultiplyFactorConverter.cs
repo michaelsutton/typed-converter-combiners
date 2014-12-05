@@ -8,7 +8,7 @@ using Converters.Infrastructure.Typed.Single;
 
 namespace Converters.Tester.Examples
 {
-    public class MultiplyConverter : TypedValueConverter<int, int>
+    public class MultiplyFactorConverter : TypedValueConverter<int, int>
     {
         private int m_factor;
         public int Factor
@@ -17,13 +17,13 @@ namespace Converters.Tester.Examples
             set { m_factor = value; }
         }
 
-        public MultiplyConverter()
+        public MultiplyFactorConverter()
             : this(1)
         {
             
         }
 
-        public MultiplyConverter(int factor)
+        public MultiplyFactorConverter(int factor)
         {
             m_factor = factor;
         }

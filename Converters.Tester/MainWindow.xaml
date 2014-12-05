@@ -4,37 +4,40 @@
         xmlns:examples="clr-namespace:Converters.Tester.Examples"
         xmlns:combiners="clr-namespace:Converters.Infrastructure.Combiners;assembly=Converters.Infrastructure"
         xmlns:builders="clr-namespace:Converters.Infrastructure.Combiners.Builders;assembly=Converters.Infrastructure"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Xaml Equation" Height="200" Width="525">
 
     <Window.Resources>
+        <examples:MultiplyFactorConverter x:Key="MultiplyFactorConverter" Factor="2"/>
 
-        <examples:MultiplyConverter x:Key="MultiplyConverter" Factor="2"/>
         <examples:AddConverter x:Key="AddConverter" />
+        <examples:MultiplyConverter x:Key="MultiplyConverter" />
 
         <combiners:ConverterChain x:Key="Chain" >
             <builders:TypedChainBuilder>
                 <examples:IntToStringConverter />
+                <!-- Covariant examples-->
 
                 <!--<examples:A1ToIntConverter />
                 <examples:IntToA2Converter />-->
 
                 <!--<examples:A3ToIntConverter />
                 <examples:IntToA2Converter />-->
-
-                <StaticResource ResourceKey="MultiplyConverter"/>
-                <StaticResource ResourceKey="MultiplyConverter"/>
-                <StaticResource ResourceKey="MultiplyConverter"/>
+                <StaticResource ResourceKey="MultiplyFactorConverter"/>
+                <StaticResource ResourceKey="MultiplyFactorConverter"/>
+                <StaticResource ResourceKey="MultiplyFactorConverter"/>
             </builders:TypedChainBuilder>
         </combiners:ConverterChain>
-        
-        <combiners:ConverterTree x:Key="Tree">
+
+        <!-- Represents the following equation: Result = (X * Y) + (X * Y) -->
+        <combiners:ConverterTree x:Key="Equation">
             <builders:TypedTreeBuilder>
 
-                <builders:ValueConverterNode Converter="{examples:UntypedIntToStringConverter}">
-                    <builders:MultiValueConverterNode Converter="{StaticResource AddConverter}" Mapping="0-1">
+                <builders:ValueConverterNode Converter="{examples:IntToStringConverter}">
+                    <builders:MultiValueConverterNode Converter="{StaticResource AddConverter}">
 
-                        <!--<builders:ValueConverterNode Mapping="0" Converter="{StaticResource MultiplyConverter}"/>
-                        <builders:ValueConverterNode Mapping="1" Converter="{StaticResource MultiplyConverter}"/>-->
+                        <!-- All leaf's on the tree must have a mapping to the args array-->
+                        <builders:MultiValueConverterNode Mapping="0-1" Converter="{StaticResource MultiplyConverter}"/>
+                        <builders:MultiValueConverterNode Mapping="0,1" Converter="{StaticResource MultiplyConverter}"/>
 
                     </builders:MultiValueConverterNode>
                 </builders:ValueConverterNode>
@@ -44,25 +47,52 @@
 
     </Window.Resources>
 
-    <StackPanel Margin="10">
-        <TextBox Margin="10" >
-            <TextBox.Text>
-                <MultiBinding Converter="{StaticResource Tree}">
-                    <Binding Path="Value"/>
-                    <Binding Path="Value"/>
-                </MultiBinding>
-            </TextBox.Text>
-        </TextBox>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
         
-        <TextBox Margin="10"
-            Text="{Binding Value, 
-            Converter={StaticResource Chain}, 
-            Mode=TwoWay,
-            UpdateSourceTrigger=LostFocus}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Text="Please enter integer numbers: " 
+                   Margin="0, 5" FontSize="18" Foreground="LightGray" FontStyle="Italic"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
 
-        <TextBox Margin="10" 
-            Text="{Binding Value, 
-            Mode=TwoWay,
-            UpdateSourceTrigger=LostFocus}"/>
-    </StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="3" />
+                    <Setter Property="FontSize" Value="20" />
+                </Style>
+
+                <Style TargetType="TextBox">
+                    <Setter Property="Margin" Value="3" />
+                    <Setter Property="FontSize" Value="20" />
+                </Style>
+            </StackPanel.Resources>
+            
+            <TextBox Margin="3" >
+                <TextBox.Text>
+                    <MultiBinding Converter="{StaticResource Equation}" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="X"/>
+                        <Binding Path="Y"/>
+                    </MultiBinding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Text="=  (" Foreground="Blue"/>
+            <TextBox Text="{Binding X, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text=" * " Margin="2" Foreground="DarkRed"/>
+            <TextBox Text="{Binding Y, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock >
+            <Run Foreground="Blue"> ) </Run>
+            <Run Foreground="DarkRed">+</Run>
+            <Run Foreground="Blue"> ( </Run>
+            </TextBlock>
+            <TextBlock Text="{Binding X}" />
+            <TextBlock Text=" * " Margin="2" Foreground="DarkRed"/>
+            <TextBlock Text="{Binding Y}" />
+            <TextBlock Text=" )" Foreground="Blue"/>
+
+        </StackPanel>
+    </Grid>
 </Window>

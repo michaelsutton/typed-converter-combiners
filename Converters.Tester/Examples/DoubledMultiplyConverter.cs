@@ -12,7 +12,7 @@ namespace Converters.Tester.Examples
             TypedChainBuilder builder = new TypedChainBuilder();
             builder.Converters.Add(new IntToStringConverter());
 
-            var multiplier = new MultiplyConverter(factor1);
+            var multiplier = new MultiplyFactorConverter(factor1);
             for (int i = 0; i < factor2; i++)
             {
                 builder.Converters.Add(multiplier);
