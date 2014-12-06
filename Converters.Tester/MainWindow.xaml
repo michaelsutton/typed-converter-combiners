@@ -70,9 +70,9 @@
                 </Style>
             </StackPanel.Resources>
             
-            <TextBox Margin="3" >
+            <TextBox Margin="3" IsReadOnly="True">
                 <TextBox.Text>
-                    <MultiBinding Converter="{StaticResource Equation}" UpdateSourceTrigger="PropertyChanged">
+                    <MultiBinding Converter="{StaticResource Equation}" UpdateSourceTrigger="PropertyChanged" Mode="OneWay">
                         <Binding Path="X"/>
                         <Binding Path="Y"/>
                     </MultiBinding>

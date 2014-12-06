@@ -34,7 +34,7 @@ namespace Converters.Tester.Examples
             if (int.TryParse(value, out num))
                 return num;
 
-            throw new InvalidDataException();
+            throw new InvalidConversionException();
         }
     }
 
