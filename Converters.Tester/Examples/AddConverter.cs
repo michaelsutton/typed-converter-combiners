@@ -31,7 +31,7 @@ namespace Converters.Tester.Examples
 
         public override IPair<int, int> ConvertBack(int value, Type[] actualTargetTypes, object parameter, CultureInfo culture)
         {
-            return new Pair<int, int>(0, value);
+            return new Pair<int, int>(value / 2, value / 2);
         }
     }
 
